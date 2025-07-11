@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
+  </head>
+  <body>
+    teste a
+
+    <div id="app">
+      {{ message }}
+      <button @click="greet">Click me</button>
+    </div>
+
+    <script>
+      var value = 0;
+      options = {
+        el: "#app", // Indicando que o Vue deve controlar o elemento com id "app"
+        data: {
+          message: "Hello " + value, // Dados reativos que podem ser usados na view
+        },
+        methods: {
+          greet: function () {
+            value++;
+            this.message = "Hello " + value; // Método que altera o valor de message
+            // this.message = "Hello World!"; // Método que altera o valor de message
+          },
+        },
+      };
+
+      const vm = new Vue(options);
+    </script>
+  </body>
+</html>
