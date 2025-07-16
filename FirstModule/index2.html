@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
+  </head>
+  <body>
+    <div id="app">
+      <a v-bind:href="site">Site</a>
+      <p>Entendendo v-bind</p>
+      <input
+        type="text"
+        id="firstValue"
+        v-bind:placeholder="instrucao1"
+        @keyup="setA()"
+      />
+      <br />
+      <input
+        type="text"
+        id="secondValue"
+        v-bind:placeholder="instrucao2"
+        @keyup="setB()"
+      />
+      <br />
+      <button v-on:click="somar(value1, value2)">Somar</button>
+      <br />
+      <br />
+      <input type="checkbox" :checked="check" />
+      <!-- Botão para disparar a mensagem de alerta usando vi-on (@)-->
+      <button @click="mensagemAlerta">Clique aqui</button>
+      <input type="text" />
+    </div>
+
+    <script>
+      var value1 = 0;
+      var value2 = 0;
+      options = {
+        el: "#app", // Indicando que o Vue deve controlar o elemento com id "app"
+        data: {
+          site: "https://www.google.com", // Dados reativos que podem ser usados na view
+          instrucao1: "Numero 1",
+          instrucao2: "Numero 2",
+          check: true, // Estado do checkbox
+        },
+        methods: {
+          mensagemAlerta() {
+            alert("Mensagem de alerta!");
+          },
+          setA() {
+            this.value1 = firstValue.value;
+          },
+          setB() {
+            this.value2 = secondValue.value;
+          },
+          somar(a, b) {
+            const num1 = parseFloat(a);
+            const num2 = parseFloat(b);
+            if (!isNaN(num1) && !isNaN(num2)) {
+              alert(`A soma é: ${num1 + num2}`);
+            } else {
+              alert("Por favor, insira números válidos.");
+            }
+          },
+        },
+      };
+
+      const vm = new Vue(options);
+    </script>
+  </body>
+</html>

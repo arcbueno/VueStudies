@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="deveExibirTexto"><p>Texto do if sendo exibido</p></div>
+      <div v-else><p>Texto do else sendo exibido</p></div>
+      <div v-html="elementosHtml">Conteúdo que será limpo</div>
+      <div v-text="elementoTexto">Conteúdo que será limpo</div>
+      <hr />
+      <br />
+      <p v-once>Saldo inicial: {{saldo}}</p>
+      <input type="number" id="valor" placeholder="Valor para transação" />
+      <button @click="creditar">Creditar</button>
+      <button @click="debitar">Debitar</button>
+      <p>Saldo: {{ saldo }}</p>
+      <hr />
+      <br />
+      <li v-for="curso in cursos">{{curso.nome }} - {{curso.preco}}</li>
+      <br />
+      <hr />
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>Preço</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="({nome, preco}, index) in cursos2" :key="index">
+            <td>{{ index }}</td>
+            <td>{{ nome }}</td>
+            <td>{{ preco }}</td>
+          </tr>
+        </tbody>
+        </tbody>
+      </table>
+      <br />
+      <hr />
+      <br />
+      <li v-for="comentario in comentarios">{{comentario.texto}}</li>
+      <button @click="adicionarComentario()">Adicionar Comentário</button>
+      <button @click="removerComentario()">Remover comentário</button>
+      <br />
+      <hr />
+      <br />
+    </div>
+
+    <script>
+      options = {
+        el: "#app", // Indicando que o Vue deve controlar o elemento com id "app"
+        data: {
+          elementosHtml:
+            "<b><p>Este é um parágrafo adicionado dinamicamente.</p> </b><p>Você pode adicionar HTML diretamente no Vue.js usando v-html.</p>",
+          elementoTexto:
+            "Esse é um texto que tanto faz se for exibido por double mustache ou v-text",
+          deveExibirTexto: 1 < 10,
+          saldo: 1000,
+          cursos: [
+            { nome: "Vue.js", preco: 100 },
+            { nome: "JavaScript", preco: 200 },
+            { nome: "HTML/CSS", preco: 150 },
+          ],
+          cursos2: {
+            curso1: { nome: "Vue.js", preco: 100 },
+            curso2: { nome: "JavaScript", preco: 200 },
+            curso3: { nome: "HTML/CSS", preco: 150 },
+          },
+          comentarios: [
+           {id:1, texto: "Primeiro comentário"},
+           {id:2, texto: "Segundo comentário"},
+           {id:3, texto: "Terceiro comentário"},
+          ]
+        },
+
+        methods: {
+          creditar() {
+            this.saldo += parseFloat(valor.value);
+          },
+          debitar() {
+            this.saldo -= parseFloat(valor.value);
+          },
+          adicionarComentario() {
+            this.comentarios.push({
+              id: this.comentarios.length + 1,
+              texto: "Novo comentário",
+            });
+          },
+          removerComentario() {
+            this.comentarios.pop();
+          },
+        },
+      };
+
+      const vm = new Vue(options);
+    </script>
+  </body>
+</html>

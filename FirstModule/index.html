@@ -7,26 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
   </head>
   <body>
-    teste a
-
     <div id="app">
-      {{ message }}
-      <button @click="greet">Click me</button>
+      <a v-bind:href="site">Site</a>
+      <p>Entendendo v-bind</p>
+      <input type="text" v-bind:value="instrucao" />
+      <input type="checkbox" :checked="check" />
     </div>
 
     <script>
-      var value = 0;
       options = {
         el: "#app", // Indicando que o Vue deve controlar o elemento com id "app"
         data: {
-          message: "Hello " + value, // Dados reativos que podem ser usados na view
-        },
-        methods: {
-          greet: function () {
-            value++;
-            this.message = "Hello " + value; // Método que altera o valor de message
-            // this.message = "Hello World!"; // Método que altera o valor de message
-          },
+          site: "https://www.google.com", // Dados reativos que podem ser usados na view
+          instrucao: "Preencha o campo abaixo com o link do site",
+          check: true, // Estado do checkbox
         },
       };
 
