@@ -4,12 +4,8 @@
       <div class="col">
         <PesquisarVaga> </PesquisarVaga>
       </div>
-      <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
-        <div class="col">
-          <MinhaVaga :titulo="vaga.titulo" :descricao="vaga.descricao" :salario="vaga.salario"
-            :modalidade="vaga.modalidade" :tipo="vaga.tipo" />
-        </div>
-      </div>
+      <lista-vagas></lista-vagas>
+
       <div class="row mt-5">
         <div class="col">
           <MeuIndicador titulo="Vagas abertas" valor="25" bg="bg-dark" color="text-white"> </MeuIndicador>
@@ -32,17 +28,18 @@
 <script>
 import PesquisarVaga from '../common/PesquisarVaga.vue';
 import MeuIndicador from '../common/MeuIndicador.vue';
-import MinhaVaga from '../common/MinhaVaga.vue';
+import ListaVagas from '../common/ListaVagas.vue';
+
 export default {
   name: "MyHome", // Name of the component
   components: {
     PesquisarVaga,
     MeuIndicador,
-    MinhaVaga
+    ListaVagas
   },
   data: () => ({
     usuariosOnline: 0, // Example data property
-    vagas: JSON.parse(localStorage.getItem("vagas")) || [],
+
   }),
   methods: {
     getUsuariosOnline() {

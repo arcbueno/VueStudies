@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     publicarVaga() {
+      console.log("Vaga publicada com sucesso!");
       let vagas = JSON.parse(localStorage.getItem("vagas")) || [];
       let vaga = {
         titulo: this.titulo,
@@ -92,7 +93,37 @@ export default {
         tipo: this.tipo
       };
       vagas.push(vaga);
+
+      let success = this.validateForm();
+
+      if (!success) {
+        this.emitter.emit('alert', {
+          tipo: 'error',
+          titulo: 'Erro ao publicar vaga',
+          descricao: 'Por favor, preencha todos os campos corretamente.'
+        });
+        return;
+      }
+
       localStorage.setItem("vagas", JSON.stringify(vagas));
+
+
+      this.emitter.emit('alert', {
+        tipo: 'success',
+        titulo: `Vaga ${this.titulo} publicada com sucesso!`,
+        descricao: "Sua vaga foi adicionada à lista de vagas."
+      }); // Emit an event to show the alert
+      this.resetForm();
+    },
+    resetForm() {
+      this.titulo = "";
+      this.descricao = "";
+      this.salario = null;
+      this.modalidade = "";
+      this.tipo = "";
+    },
+    validateForm() {
+      return this.titulo && this.descricao && this.salario && this.modalidade && this.tipo;
     }
   }
 }
