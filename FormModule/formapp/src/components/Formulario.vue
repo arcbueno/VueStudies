@@ -4,7 +4,7 @@
             <div class="col-6 bg-light">
                 <span class="fs-4">ENTRADA DE DADOS</span>
                 <hr>
-                <form>
+                <form @submit.prevent="enviar(event)" @reset.prevent="resetarFormulario">
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
@@ -34,13 +34,14 @@
                         <label class="col-3 col-form-label">Gênero:</label>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio">
+                                <input class="form-check-input" type="radio" v-model="formData.genero" value="Feminino">
                                 <label class="form-check-label">
                                     Feminino
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio">
+                                <input class="form-check-input" type="radio" v-model="formData.genero"
+                                    value="Masculino">
                                 <label class="form-check-label">
                                     Masculino
                                 </label>
@@ -95,69 +96,147 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Telefone:</label>
                         <div class="col">
-                            <input type="tel" class="form-control" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}">
+                            <input type="text" class="form-control" v-maska="'(##) #####-####'"
+                                v-model="formData.telefone">
                             <small class="text-muted">Formato: 11 97777-5555</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CEP:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'#####-###'" v-model="formData.cep">
+                            <small class="text-muted">Formato: 0000-000</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CPF:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'###.###.###-##'" v-model="formData.cpf">
+                            <small class="text-muted">Formato: 000.000.000-00</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">CNPJ:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'##.###.###/####-##'"
+                                v-model="formData.cnpj">
+                            <small class="text-muted">Formato: 00.000.000/0000-00</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Cartão de credito:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'#### #### #### ####'"
+                                v-model="formData.cartaoDeCredito">
+                            <small class="text-muted">Formato: 0000 0000 0000 0000</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Placa veículo:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'@@@-####'"
+                                oninput="this.value = this.value.toUpperCase()" v-model="formData.placaVeiculo">
+                            <small class="text-muted">Formato: ABC-1234</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Placa de veículo mercosul:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-maska="'@@@#@##'"
+                                oninput="this.value = this.value.toUpperCase()" v-model="formData.placaVeiculoMercosul">
+                            <small class="text-muted">Formato: AAA0A00</small>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">RG:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" v-model="formData.rg">
+                            <small class="text-muted">Formato: Sem padrão</small>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data:</label>
                         <div class="col">
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" v-model="formData.data">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data/hora local:</label>
                         <div class="col">
-                            <input type="datetime-local" class="form-control">
+                            <input type="datetime-local" class="form-control" v-model="formData.dataHoraLocal">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Mês:</label>
                         <div class="col">
-                            <input type="month" class="form-control">
+                            <input type="month" class="form-control" v-model="formData.mes">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Semana:</label>
                         <div class="col">
-                            <input type="week" class="form-control">
+                            <input type="week" class="form-control" v-model="formData.semana">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Hora:</label>
                         <div class="col">
-                            <input type="time" class="form-control">
+                            <input type="time" class="form-control" v-model="formData.hora">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Cor:</label>
                         <div class="col">
-                            <input type="color" class="form-color">
+                            <input type="color" class="form-color" v-model="formData.cor">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Valor limite:</label>
                         <div class="col">
-                            <input type="range" class="form-range" min="0" max="100" step="1">
+                            <input type="range" class="form-range" min="0" max="100" step="1" v-model="formData.range">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Escondido:</label>
                         <div class="col">
-                            <input type="hidden" class="form-control">
+                            <input type="hidden" class="form-control" v-model="formData.valorEscondido">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Upload:</label>
                         <div class="col">
-                            <input type="file" class="form-control">
+                            <input type="file" class="form-control" multiple @change="selecionarAquivos($event)">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Descrição:</label>
+                        <div class="col">
+                            <textarea class="form-control" v-model="formData.descricao" rows="3"
+                                placeholder="Digite ou cole o conteúdo do arquivo aqui..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Cursos:</label>
+                        <div class="col">
+                            <select class="form-select" v-model="formData.curso">
+                                <option v-for="curso in cursos" :key="curso.id" :value="curso.id">
+                                    {{ curso.curso }} - {{ curso.descricao }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Avaliação:</label>
+                        <div class="col">
+                            <input-estrelas :numero-estrelas="5"
+                                @avaliacao="formData.avaliacao = $event"></input-estrelas>
                         </div>
                     </div>
                     <hr>
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
-                            <button class="btn btn-secondary" type="reset">Limpar</button>
-                            <button class="btn btn-success" type="button">Enviar (btn)</button>
+                            <button class="btn btn-secondary" type="reset">Limpar (reset)</button>
+                            <button class="btn btn-success" type="button" @click="enviar($event)">Enviar (btn)</button>
                             <button class="btn btn-success" type="submit">Enviar (submit)</button>
                         </div>
                     </div>
@@ -166,70 +245,127 @@
             </div>
 
 
-            <div class="col-6 text-white bg-secondary">
+            <div class="col-6 text-white bg-secondary" :style="'background-color:' + formData.cor + '!important'">
                 <span class="fs-4">ESTADO DO OBJETO</span>
                 <hr>
                 <div class="mb-5 row">
-                    <spam>{{ formData }}</spam>
+                    <span>{{ formData }}</span>
                 </div>
 
                 <span class="fs-4">SAÍDA DE DADOS</span>
                 <hr>
                 <div class="mb-3 row">
-                    <spam>Nome: {{ formData.nome }}</spam>
+                    <span>Nome: {{ formData.nome }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>E-mail: {{ formData.email }}</spam>
+                    <span>E-mail: {{ formData.email }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Senha: {{ formData.senha }}</spam>
+                    <span>Senha: {{ formData.senha }}</span>
                 </div>
                 <div class="mb-3 row">
                     <!-- Valor criado dinâmicamente -->
-                    <spam>Idade: {{ formData.idade }}</spam>
+                    <span>Idade: {{ formData.idade }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Gênero:</spam>
+                    <span>Gênero: {{ formData.genero }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Licença: {{ formData.licenca }}</spam>
+                    <span>Licença: {{ formData.licenca }}</span>
 
                 </div>
                 <div class="mb-3 row">
-                    <spam>Interesses:</spam>
+                    <span>Interesses:</span>
                     <ul>
                         <li v-for="interesse in formData.interesses" :key="interesse">{{ interesse }}</li>
                     </ul>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Telefone:</spam>
+                    <span>Telefone: {{ formData.telefone }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Data:</spam>
+                    <span>CEP: {{ formData.cep }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Data/hora local:</spam>
+                    <span>CPF: {{ formData.cpf }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Mês:</spam>
+                    <span>CNPJ: {{ formData.cnpj }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Semana:</spam>
+                    <span>Cartão de crédito: {{ formData.cartaoDeCredito }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Hora:</spam>
+                    <span>Placa veículo: {{ formData.placaVeiculo }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Cor:</spam>
+                    <span>Placa veículo Mercosul: {{ formData.placaVeiculoMercosul }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Valor limite:</spam>
+                    <span>RG: {{ formData.rg }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Escondido:</spam>
+                    <span>Data: {{ formData.data }} | {{ $moment(formData.data).format('DD/MM/YYYY') }}</span>
                 </div>
                 <div class="mb-3 row">
-                    <spam>Upload:</spam>
+                    <span>Data/hora local: {{ formData.dataHoraLocal }}</span>
+                    <ul>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('dddd') }}
+                        </li>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('DD/MM/YYYY') }}
+                        </li>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('HH:mm:ss') }}
+                        </li>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('MMMM') }}
+                        </li>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('YYYY') }}
+                        </li>
+                        <li>
+                            {{ $moment(formData.dataHoraLocal).format('LLLL') }}
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="mb-3 row">
+                    <span>Mês: {{ formData.mes }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Semana: {{ formData.semana }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Hora: {{ formData.hora }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Cor: {{ formData.cor }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Valor limite: {{ formData.range }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Escondido: {{ formData.valorEscondido }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Upload:</span>
+                    <ul>
+                        <li v-for="arquivo in formData.arquivos" :key="arquivo.name">
+                            {{ arquivo.name }} ({{ arquivo.size }} bytes)
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-3 row">
+                    <span>Descrição: {{ formData.descricao }}</span>
+                    <div style="white-space: pre">{{ formData.descricao }}</div>
+                </div>
+                <div class="mb-3 row">
+                    <span>Curso selecionado: {{ formData.curso }}</span>
+                </div>
+                <div class="mb-3 row">
+                    <span>Avaliação: {{ formData.avaliacao }}</span>
                 </div>
             </div>
         </div>
@@ -239,10 +375,30 @@
 </template>
 
 <script>
+import InputEstrelas from './InputEstrelas.vue';
+
 export default {
     name: 'FormularioComponent',
+    components: {
+        InputEstrelas
+    },
+    created() {
+        this.resetarFormulario();
+    },
     data: () => ({
-        formData: {
+        cursos: [
+            {
+                id: 1, curso: 'VueJS', descricao: 'Curso de VueJS', preco: 100.00, ativo: true
+            },
+            {
+                id: 2, curso: 'Angular', descricao: 'Curso de Angular', preco: 150.00, ativo: false
+            },
+            {
+                id: 3, curso: 'React', descricao: 'Curso de React', preco: 200.00, ativo: true
+            }
+        ],
+        formData: {},
+        formBase: {
             nome: '',
             email: '',
             senha: '',
@@ -250,7 +406,45 @@ export default {
             interesses: [
                 'VueJS',
             ],
-        }
+            genero: '',
+            telefone: '',
+            cep: '',
+            cpf: '',
+            cnpj: '',
+            cartaoDeCredito: '',
+            placaVeiculo: '',
+            placaVeiculoMercosul: '',
+            rg: '',
+            data: '',
+            dataHoraLocal: '',
+            mes: '',
+            semana: '',
+            hora: '',
+            cor: '',
+            range: 5,
+            valorEscondido: 'Esse input é escondido',
+            arquivos: {},
+            curso: '',
+            avaliacao: 0,
+        },
+
     }),
+    methods: {
+        selecionarAquivos(event) {
+            const input = event.target;
+            this.formData.arquivos = input.files;
+        },
+        enviar(event) {
+            // event.preventDefault();
+            // Aqui você pode adicionar a lógica para enviar os dados do formulário
+            console.log(event);
+            console.log('Formulário enviado:', this.formData);
+            let formEnvio = Object.assign({}, this.formData);
+            console.log('Dados do formulário:', formEnvio);
+        },
+        resetarFormulario() {
+            this.formData = Object.assign({}, this.formBase);
+        }
+    },
 }
 </script>
